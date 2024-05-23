@@ -32,15 +32,29 @@
 
 const http = require("http")
 const fs = require("fs");
+const { parse } = require("path");
 const html = fs.readFileSync("./files/index.html", "utf-8")
+const jsondata = JSON.parse(fs.readFileSync("./Data/jsondata.js", "utf-8"))
+const producthtml = fs.readFileSync("./files/productlist.html", "utf-8")
+const replacehtml = jsondata.map((items) => {
+    let output = producthtml.replace("{{%XIMAGEX%}}", items.productImage)
+    output = producthtml.replace("{{%XNAMEX%}}", items.name)
+    output = producthtml.replace("{{%XMODELNAMEX%}}", items.modelName)
+    output = producthtml.replace("{{%MODELNO%}}", items.modelNumber)
+    output = producthtml.replace("{{%SIZE%}}", items.size)
+    output = producthtml.replace("{{%XCAMERAX%}}", items.camera)
+    output = producthtml.replace("{{%XPRICE%}}", items.price)
+    output = producthtml.replace("{{%XCOLOR%}}", items.color)
+    return output;
+})
 const app = http.createServer((req, res) => {
     const path = req.url
     if (path == "/" || path.toLowerCase() == "/home") {
-        res.writeHead(200,{
-            "Content-type":"text/html",
-            "my-header":"this is my on website"
+        res.writeHead(200, {
+            "Content-type": "text/html",
+            "my-header": "this is my on website"
         })
-        res.end(html.replace("{{%CONTENT%}}", "you are in Home page"))
+        res.end(html.replace("{{%CONTENT%}}", "you are in Home page "))
     } else if (path.toLowerCase() == "/contact") {
         res.writeHead(200)
         res.end(html.replace("{{%CONTENT%}}", "you are in Contact page"))
@@ -48,9 +62,9 @@ const app = http.createServer((req, res) => {
         res.writeHead(200)
         res.end(html.replace("{{%CONTENT%}}", "you are in About page"))
     } else if (path.toLowerCase() == "/products") {
-        res.writeHead(200)
-        res.end(html.replace("{{%CONTENT%}}", "you are in Product page"))
-        fs.readFile("")
+        const indexreplace = html.replace("{{%CONTENT%}}", replacehtml.join(","))
+        res.writeHead(200, { "Content-type": "text/html" })
+        res.end(indexreplace)
     } else {
         res.writeHead(404)
         res.end(html.replace("{{%CONTENT%}}", "404:page note found"))

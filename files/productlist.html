@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        /* Container for the products list */
+        .products-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+        }
+
+        /* Styling for each product detail */
+        .products-detail {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            background-color: #fff;
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+        }
+
+        /* Styling for product image */
+        .product-image img {
+            border-radius: 8px;
+        }
+
+        /* Styling for product specifications */
+        .product-specs {
+            flex: 1;
+            margin-left: 20px;
+        }
+
+        .product-specs h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.5em;
+            color: #333;
+        }
+
+        .product-specs p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        .product-specs span {
+            font-weight: bold;
+        }
+
+        /* Styling for the product info section */
+        .product-info {
+            margin-top: 10px;
+        }
+
+        .product-info h4 {
+            margin: 5px 0;
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        .btn {
+            padding: 10px 15px;
+            margin: 5px 5px 0 0;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: #fff;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+    </style>
+
+
+    <div class="products-list">
+
+        <div class="products-detail">
+
+            <div class="product-image">
+                <img src={{%XIMAGEX%}} height="120" width="120" alt="iPhone SE">
+            </div>
+
+            <div class="product-specs">
+                <h3>{{%XNAMEX%}}</h3>
+                <p><span>Model Name:</span> {{%XMODELNAMEX%}}</p>
+                <p><span>Model Number:</span>{{%MODELNO%}}</p>
+                <p><span>Size:</span>{{%SIZE%}}</p>
+            </div>
+
+            <p><span>Camera:</span>{{%XCAMERAX%}}</p>
+        </div>
+
+        <div class="products-detail">
+            <div class="product-info">
+                <h4>Price: {{%XPRICE%}}</h4>
+            </div>
+            <div class="product-info">
+                <h4>Color: {{%XCOLOR%}}</h4>
+            </div>
+            <div class="product-info">
+                <button class="btn btn-primary">Buy Now</button>
+                <button class="btn btn-secondary">Show Details</button>
+            </div>
+        </div>
+
+    </div>
+
+
+
+</body>
+
+</html>

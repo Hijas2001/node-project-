@@ -30,46 +30,115 @@
 //     })
 // })
 
+
+
+
+
+// const http = require("http");
+// const fs = require("fs");
+// const html = fs.readFileSync("./files/index.html", "utf-8");
+// const jsondata = JSON.parse(fs.readFileSync("./Data/jsondata.js", "utf-8"));
+// const producthtml = fs.readFileSync("./files/productlist.html", "utf-8");
+
+// const replacePlaceholders = (template, data) => {
+//     let output = template.replace(/{{%XIMAGEX%}}/g, data.productImage);
+//     output = output.replace(/{{%XNAMEX%}}/g, data.name);
+//     output = output.replace(/{{%XMODELNAMEX%}}/g, data.modelName);
+//     output = output.replace(/{{%MODELNO%}}/g, data.modelNumber);
+//     output = output.replace(/{{%SIZE%}}/g, data.size);
+//     output = output.replace(/{{%XCAMERAX%}}/g, data.camera);
+//     output = output.replace(/{{%XPRICE%}}/g, data.price);
+//     output = output.replace(/{{%XCOLOR%}}/g, data.color);
+//     return output;
+// };
+
+// const replacehtml = jsondata.map(item => replacePlaceholders(producthtml, item)).join('');
+
+// const app = http.createServer((req, res) => {
+//     const path = req.url.toLowerCase();
+//     if (path === "/" || path === "/home") {
+//         res.writeHead(200, {
+//             "Content-type": "text/html",
+//             "my-header": "this is my own website"
+//         });
+//         res.end(html.replace("{{%CONTENT%}}", "you are in Home page"));
+//     } else if (path === "/contact") {
+//         res.writeHead(200);
+//         res.end(html.replace("{{%CONTENT%}}", "you are in Contact page"));
+//     } else if (path === "/about") {
+//         res.writeHead(200);
+//         res.end(html.replace("{{%CONTENT%}}", "you are in About page"));
+//     } else if (path === "/products") {
+//         const indexreplace = html.replace("{{%CONTENT%}}", replacehtml);
+//         res.writeHead(200, { "Content-type": "text/html" });
+//         res.end(indexreplace);
+//     } else {
+//         res.writeHead(404);
+//         res.end(html.replace("{{%CONTENT%}}", "404: page not found"));
+//     }
+// });
+
+// app.listen(8000, '127.0.0.1', () => {
+//     console.log("server start");
+// });
+
+
+
 const http = require("http")
-const fs = require("fs");
-const { parse } = require("path");
-const html = fs.readFileSync("./files/index.html", "utf-8")
+const fs = require("fs")
+const url = require("url")
+
+const indexhtml = fs.readFileSync("./files/index.html", "utf-8")
 const jsondata = JSON.parse(fs.readFileSync("./Data/jsondata.js", "utf-8"))
-const producthtml = fs.readFileSync("./files/productlist.html", "utf-8")
-const replacehtml = jsondata.map((items) => {
-    let output = producthtml.replace("{{%XIMAGEX%}}", items.productImage)
-    output = producthtml.replace("{{%XNAMEX%}}", items.name)
-    output = producthtml.replace("{{%XMODELNAMEX%}}", items.modelName)
-    output = producthtml.replace("{{%MODELNO%}}", items.modelNumber)
-    output = producthtml.replace("{{%SIZE%}}", items.size)
-    output = producthtml.replace("{{%XCAMERAX%}}", items.camera)
-    output = producthtml.replace("{{%XPRICE%}}", items.price)
-    output = producthtml.replace("{{%XCOLOR%}}", items.color)
-    return output;
-})
+const productlist = fs.readFileSync("./files/productlist.html", "utf-8")
+
+let replacefunctionality = (input, item) => {
+    let output = input;
+    output = output.replace("{{%XIMAGEX%}}", item.productImage)
+    output = output.replace("{{%NAME%}}", item.name)
+    output = output.replace("{{%XMODELNAMEX%}}", item.modelName)
+    output = output.replace("{{%MODELNO%}}", item.modelNumber)
+    output = output.replace("{{%SIZE%}}", item.size)
+    output = output.replace("{{%XCAMERAX%}}", item.camera)
+    output = output.replace("{{%XPRICE%}}", item.price)
+    output = output.replace("{{%XCOLOR%}}", item.color)
+    output = output.replace("{{%ID%}}", item.id)
+    return output
+}
+
+
+const replacedata = jsondata.map((item) => replacefunctionality(productlist, item)).join(",")
+// const joineddata = replacehtml.join(",")
+
 const app = http.createServer((req, res) => {
-    const path = req.url
-    if (path == "/" || path.toLowerCase() == "/home") {
+    const { query, pathname: route } = url.parse(req.url, true)
+    // console.log(route);
+    // const route = req.url
+    if (route == "/" || route.toLowerCase() == "/home") {
         res.writeHead(200, {
             "Content-type": "text/html",
-            "my-header": "this is my on website"
+            "this-is-my-header": "hijas"
         })
-        res.end(html.replace("{{%CONTENT%}}", "you are in Home page "))
-    } else if (path.toLowerCase() == "/contact") {
-        res.writeHead(200)
-        res.end(html.replace("{{%CONTENT%}}", "you are in Contact page"))
-    } else if (path.toLowerCase() == "/about") {
-        res.writeHead(200)
-        res.end(html.replace("{{%CONTENT%}}", "you are in About page"))
-    } else if (path.toLowerCase() == "/products") {
-        const indexreplace = html.replace("{{%CONTENT%}}", replacehtml.join(","))
-        res.writeHead(200, { "Content-type": "text/html" })
-        res.end(indexreplace)
+        res.end(indexhtml.replace("{{%CONTENT%}}", "you are in home page "))
+    } else if (route.toLowerCase() == "/contact") {
+        res.end(indexhtml.replace("{{%CONTENT%}}", "you are in contact page "))
+    } else if (route.toLowerCase() == "/about") {
+        res.end(indexhtml.replace("{{%CONTENT%}}", "you are in about page "))
+    } else if (route.toLowerCase() == "/products") {
+        if (!query.id) {
+            res.writeHead(200, { "Content-type": "text/html" })
+            res.end(indexhtml.replace("{{%CONTENT%}}", replacedata))
+        } else {
+            res.end("single product deatails Id = "+ query.id)
+        }
+
     } else {
         res.writeHead(404)
-        res.end(html.replace("{{%CONTENT%}}", "404:page note found"))
+        res.end(indexhtml.replace("{{%CONTENT%}}", "404:page not foud"))
     }
 })
-app.listen(8000, '127.0.0.1', () => {
-    console.log("server start");
+app.listen(7000, "127.0.0.1", () => {
+    console.log("server runnign");
 })
+
+

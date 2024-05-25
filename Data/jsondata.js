@@ -11,7 +11,7 @@
         "size": "15.49 cm (6.1 inch) Display",
         "camera": "12MP Rear Camera, 7MP Front Camera",
         "description": "1400:1 Contrast Ratio (Typical), True Tone Display (Six-channel Light Sensor), Wide Colour Display, 625 nits Max Brightness (Typical), Fingerprint-resistant Oleophobic Coating, Support for Display of Multiple Languages and Characters, Retina HD Display, Tap to wake, Wide Colour Gamut",
-        "productImage": "https://cl.alamy.com/zooms/6/e98284ded5444c88949d7fd9f2bee356/2cd68c5.jpg"
+        "productImage": "https://www.apple.com/newsroom/images/product/iphone/standard/iPhone_XR_black-back_09122018_carousel.jpg.large.jpg"
     },
     {
         "id": 2,
@@ -37,7 +37,7 @@
         "size": "15.49 cm (6.1 inch) Super Retina XDR Display",
         "camera": "12MP Triple Rear Camera, 12MP Front Camera",
         "description": "Pro camera system with LiDAR scanner, Super Retina XDR display, Haptic Touch, 1200 nits Max Brightness (HDR), Fingerprint-resistant Oleophobic Coating, Support for Display of Multiple Languages and Characters",
-        "productImage": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-12-pro-graphite-select-2020"
+        "productImage": "https://www.neolight.in/wp-content/uploads/2022/01/iphone-12-pro-blue.jpg"
     },
     {
         "id": 4,
@@ -50,7 +50,7 @@
         "size": "15.49 cm (6.1 inch) Super Retina XDR Display",
         "camera": "12MP Dual Rear Camera, 12MP Front Camera",
         "description": "Super Retina XDR display, Haptic Touch, 800 nits Max Brightness (Typical), Fingerprint-resistant Oleophobic Coating, Support for Display of Multiple Languages and Characters",
-        "productImage": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-red-select-2021"
+        "productImage": "https://m.media-amazon.com/images/I/71GLMJ7TQiL._AC_UF1000,1000_QL80_.jpg"
     },
     {
         "id": 5,
@@ -63,7 +63,7 @@
         "size": "15.49 cm (6.1 inch) Super Retina XDR Display",
         "camera": "12MP Triple Rear Camera, 12MP Front Camera",
         "description": "Pro camera system with Ultra Wide, Wide, and Telephoto cameras, Super Retina XDR display, Haptic Touch, 1000 nits Max Brightness (Typical), Fingerprint-resistant Oleophobic Coating, Support for Display of Multiple Languages and Characters",
-        "productImage": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-pro-gold-select-2021"
+        "productImage": "https://images-cdn.ubuy.co.in/6526eb02b2298022564593db-pre-owned-apple-iphone-13-pro-max.jpg"
     }, 
     {
         "id": 6,

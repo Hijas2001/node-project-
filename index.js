@@ -91,9 +91,10 @@ const url = require("url")
 const indexhtml = fs.readFileSync("./files/index.html", "utf-8")
 const jsondata = JSON.parse(fs.readFileSync("./Data/jsondata.js", "utf-8"))
 const productlist = fs.readFileSync("./files/productlist.html", "utf-8")
+const singleProduct = fs.readFileSync("./files/singleproduct.html", "utf-8")
 
-let replacefunctionality = (input, item) => {
-    let output = input;
+let replacefunctionality = (template, item) => {
+    let output = template;
     output = output.replace("{{%XIMAGEX%}}", item.productImage)
     output = output.replace("{{%NAME%}}", item.name)
     output = output.replace("{{%XMODELNAMEX%}}", item.modelName)
@@ -103,16 +104,16 @@ let replacefunctionality = (input, item) => {
     output = output.replace("{{%XPRICE%}}", item.price)
     output = output.replace("{{%XCOLOR%}}", item.color)
     output = output.replace("{{%ID%}}", item.id)
+    output = output.replace("{{%ROM%}}", item.ROM)
+    output = output.replace("{{%DISCRIPTION%}}", item.description)
     return output
 }
 
 
-const replacedata = jsondata.map((item) => replacefunctionality(productlist, item)).join(",")
 // const joineddata = replacehtml.join(",")
 
 const app = http.createServer((req, res) => {
     const { query, pathname: route } = url.parse(req.url, true)
-    // console.log(route);
     // const route = req.url
     if (route == "/" || route.toLowerCase() == "/home") {
         res.writeHead(200, {
@@ -127,9 +128,12 @@ const app = http.createServer((req, res) => {
     } else if (route.toLowerCase() == "/products") {
         if (!query.id) {
             res.writeHead(200, { "Content-type": "text/html" })
+            const replacedata = jsondata.map((item) => replacefunctionality(productlist, item)).join(",")
             res.end(indexhtml.replace("{{%CONTENT%}}", replacedata))
         } else {
-            res.end("single product deatails Id = "+ query.id)
+            const productId = jsondata[query.id]
+            const singleProductdata = replacefunctionality(singleProduct, productId)
+            res.end(indexhtml.replace("{{%CONTENT%}}", singleProductdata))
         }
 
     } else {
